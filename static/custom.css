@@ -1,0 +1,69 @@
+/*Some css fixes to use night theme with IPython slides*/
+/*@import url("font-awesome/css/font-awesome.min.css");*/
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css");
+
+body { 
+  background-image: url('imgs/background3.svg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: left bottom;
+  background-size: 100% 100%;
+}
+
+body {
+    font-size:100%;
+    line-height:1.125em; /* 16×1.125=18 */
+
+}.bodytext p {
+    font-size:0.90em;
+
+}.sidenote {
+    font-size:0.75em;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  margin: 0 0 10px 0;
+  color: #333333;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: bold,
+  /*line-height: 0.9em;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;*/
+  text-shadow: none; }
+
+.reveal {
+    font-family: "Ubuntu", sans-serif;
+    font-size: 26px;
+    font-weight: normal;
+    color: black;
+
+    background-image: url('imgs/logo_gic_for_slide.svg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: right bottom;
+    background-size: 600px;
+}
+
+code,pre{
+    padding:0 3px 2px;
+    font-family:monospace;
+    font-size:10px;
+    color:#aaaaaa;
+    border-radius:3px;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px}
+
+code{
+    padding:2px 4px;
+    color:#d14;
+    background-color:#999999;
+    border:1px solid #e1e1e8;
+    white-space:nowrap
+}
+
