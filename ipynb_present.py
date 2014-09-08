@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import os
-import sys
 import shutil
 import tempfile
 import logging
@@ -16,9 +15,14 @@ def create_argparser():
     parser.add_argument('-n', '--notebook', action='store',
                         dest='notebook',
                         help='The IPython notebook file path.')
-    parser.add_argument('-o', '--other', action='append', dest='others', default=[],
+    parser.add_argument('-o', '--other', action='append', dest='others', 
+                        default=[],
                         help='Other files needed by the notebook.'
                              'This flag can be used more than once.')
+    parser.add_argument('-s', '--static', action='store', dest='static', 
+                        default='',
+                        help='The static folder path where custom Reveal.js '
+                             'files are')
     return parser
 
 if __name__ == '__main__':
@@ -36,6 +40,7 @@ if __name__ == '__main__':
 
     ipynbf = args.notebook
     others = args.others
+    static_arg = args.static
 
     if not os.path.exists(ipynbf):
         log.error('Could not find file: {}'.format(ipynbf))
@@ -43,14 +48,23 @@ if __name__ == '__main__':
 
     cur_dir = os.path.abspath(os.curdir)
 
-    #check for 'statics 'templates' dir
+    #check for statics 'static' dir
     ipynb_path = os.path.dirname(os.path.realpath(ipynbf))
-    statics_dir = os.path.join(ipynb_path, 'static')
-    if not os.path.exists(statics_dir):
-        statics_dir = os.path.expanduser('~/Dropbox/Documents/ipynb/templates')
 
-    if os.path.exists(statics_dir):
-        log.info('Using templates folder from: {}'.format(statics_dir))
+    statics_dir_options = [static_arg,
+                           os.path.join(ipynb_path, 'static'),
+                           os.path.join(cur_dir, 'static'),
+                           os.path.expanduser('~/Dropbox/Documents/ipynb/templates/static')]
+
+    for statics_dir in statics_dir_options:
+        if os.path.exists(statics_dir):
+            break
+
+    if not os.path.exists(statics_dir):
+        log.error('Could not find a "static" folder.'
+                  'Using the standard configuration.')
+    else:
+        log.info('Using static folder from: {}'.format(statics_dir))
 
     #create temporary folder
     tmp_dir = tempfile.mkdtemp(prefix='ipynb_present_')
